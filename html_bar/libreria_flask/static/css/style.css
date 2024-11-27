@@ -67,3 +67,36 @@ img{
     background-color: #57AF1E;
     border-color: transparent;
 }
+
+
+#fondo{
+    background-color: white !important;
+}
+
+
+.top-fixed {
+    position: fixed;
+    top: 40px; /* Distancia desde el borde superior */
+    width: 100%; /* Opcional: cubrir todo el ancho */
+    z-index: 1000; /* Para asegurar que quede encima de otros elementos */
+  }
+
+  #imagen{
+
+    width: 120px ;
+    height: auto;
+    border-radius: 10px;
+  }
+
+
+  .text-decoration-none {
+    color: #646464  ; /* Gris oscuro */
+  }
+  
+
+  #titulo{
+    font-family:sans-serif;
+  }
+
+
+  

@@ -12,14 +12,14 @@
 
 <body id="root">
 
-    <div class="position-relative" style="background-color: white;">
+    <div class="position-relative" id='fondo'>
 
         <img src="../static/image/AlmaCafePuertoMadero_portada.jpg_copia (1).png" class="img-fluid" alt="Café Alma">
-        <button class="btn btn-outline-success position-absolute rounded-circle" style=" top: 5%; left: 80%; transform: translate(-50%, -50%); background-color: white; width: 40px; ">
+        <button class="btn btn-outline-success position-absolute rounded-circle top-fixed" style="left: 80%; transform: translate(-50%, -50%); background-color: white; width: 40px; ">
             <i class="bi bi-share"></i>
         </button>
 
-        <button class="btn btn-outline-success position-absolute rounded-circle" style=" top: 5%; left: 92%; transform: translate(-50%, -50%); background-color: white; width: 40px;">
+        <button class="btn btn-outline-success position-absolute rounded-circle top-fixed" style=" left: 92%; transform: translate(-50%, -50%); background-color: white; width: 40px;">
             <i class="bi bi-info-circle"></i>
         </button>
 
@@ -55,120 +55,204 @@
                 <td><small style="color: gray;" id="link" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver horarios</small></td>
               </tr>
             </tbody>
-          </table>
+        </table>
 
 
         <div class="row" >
             <div class="col-12">
                 <div class="d-flex flex-nowrap overflow-auto mt-4 mb-1">
-
-                 <div>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
-                    <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio0">Todos</label>
-                </div>
                   
+                        <!-- Opción "Todos" -->
+                      <a href="#todasLasCategorias">
+                          <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
+                          <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio0">Todos</label>
+                      </a>
+   
+                   <!-- Opciones dinámicas -->
+                  
+                    {% for categoria in categorias %}
+                      <a href="javascript:void(0)" onclick="scrollToAndExpand('{{ categoria[0] }}')">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio{{ loop.index }}" autocomplete="off">
+                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio{{ loop.index }}">
+                          {{ categoria[0] }}
+                        </label>
+                      </a>
+                    {% endfor %}
 
-                {% for categoria in categorias %}
-                   <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio{{loop.index}}" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio{{loop.index}}">{{ categoria[0] }}</label>
-                   </div>
-                {% endfor %}
-                  <!--
-
-                     <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio3">Pastelería</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio4" style="width: auto; white-space: nowrap;">Sin TACC</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio5">Acompañamientos</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio6">Ensaladas</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio7" style="width: auto; white-space: nowrap;">Nuestros sanwiches</label>
-                    </div>
-
-                   <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio8" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio8">Tartas</label>
-                   </div>
-
-
-                  -->
 
                 </div>
             </div>
         </div>
-
 
 
         <div class="row">
             <div class="col-12">
                 <div class="d-flex flex-nowrap overflow-auto mt-1">
-
-
-                    {% for nombre_categoria in productos_de_categoria %}
+                    {% for categoria in categorias %}
                     <div>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio{{ loop.index }}" autocomplete="off">
-                        <label class="btn btn-primary rounded-pill me-1" for="btnradio{{ loop.index }}">
-                            {{ nombre_categoria[0] }}  <!-- Asegúrate de acceder al valor correcto aquí -->
+                        <input type="radio" class="btn-check" name="radio" id="radio{{ loop.index }}" autocomplete="off">
+                        <label class="btn btn-outline-dark rounded-pill me-1" for="radio{{ loop.index }}">
+                            {{ categoria[0] }}  <!-- Asegúrate de acceder al valor correcto aquí -->
                         </label>
                     </div>
                 {% endfor %}
                 
-                
-
-                   <!--
-                     <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio1" autocomplete="off" checked>
-                        <label class="btn btn-sm btn-outline-danger rounded-pill me-1"  for="radio1" style="width: auto; white-space: nowrap;">Sin TACC</label>
-                    </div>
-                  
-                   <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio2" autocomplete="off">
-                        <label class="btn btn-sm btn-outline-dark rounded-pill me-1" for="radio2">Arabe</label>
-                   </div>
-                  
-                        <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio3" autocomplete="off">
-                        <label class="btn btn-sm btn-outline-dark rounded-pill me-1" for="radio3">Pebete</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio4" autocomplete="off">
-                        <label class="btn btn-sm btn-outline-dark rounded-pill me-1" for="radio4">Baguette</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio5" autocomplete="off">
-                        <label class="btn btn-sm btn-outline-success rounded-pill me-1" for="radio5">Vegetariano</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio6" autocomplete="off">
-                        <label class="btn btn-sm    btn-outline-success rounded-pill me-1" for="radio6">Vegano</label>
-                    </div>
-                   -->
-
                 </div>
             </div>
         </div>
 
 
+
+
+        {% if nombre_categoria is none %}
+        {% for categoria in categorias %}
+          <div class="container mt-4">
+            <div class="category-section mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <button class="btn p-0 border-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#{{ categoria[0] }}" aria-expanded="true" aria-controls="cafeteriaProducts" onclick="scrollToSection('{{ categoria[0] }}')">
+                  <h5 class="m-1">{{ categoria[0] }}<span class="arrow-up">&#9650;</span></h5>
+                </button>
+                
+              
+              {% if categoria[0] == "cafeteria" %}
+              <span class="text-muted" >15 Items</span>
+              {% endif %}
+              {% if categoria[0] == "pasteleria" %}
+              <span class="text-muted">12 Items</span>
+              {% endif %}
+              {% if categoria[0] == "sin_tacc" %}
+              <span class="text-muted">7 Items</span>
+              {% endif %}
+              {% if categoria[0] == "acompañamientos" or categoria[0] == 'ensaladas' %}
+              <span class="text-muted">3 Items</span>
+              {% endif %}
+              {% if categoria[0] == "sanguches"  %}
+              <span class="text-muted">14 Items</span>
+              {% endif %}
+              {% if categoria[0] == "tartas" or categoria[0] == 'emp  anadas_pizzas' %}
+              <span class="text-muted">5 Items</span>
+              {% endif %}
+              {% if categoria[0] == "bebidas"  %}
+              <span class="text-muted">22 Items</span>
+              {% endif %}
+              {% if categoria[0] == "flores" %}
+              <span class="text-muted">4 Items</span>
+              {% endif %}
+
+
+              </div>
+              <div id="{{ categoria[0] }}" class="collapse show mt-3">
+                <p class="text-muted">
+                    {% for producto in productos_por_categoria[categoria[0]] %}
+                    <div class="container mt-4">
+                        <div class="product d-flex align-items-center mb-3">
+                            <img src="../static/image/alma.png" alt="Producto" class="product-img me-3" id="imagen">
+                            <div>
+                                <h5 id="titulo">{{ producto[1] }}</h5>
+                                <p><small><a href="index.html" class="text-decoration-none">{{ producto[2] }}</a></small></p>
+                                <div class="d-flex">
+                                    <p class="m-0 text-muted mt-4">$ {{ producto[5] }}</p>
+                                    <span class="badge text-bg-success mt-4">{{ producto[3] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+      
+
+
+       
+
+
+
+  
+      <div class="container mt-4 ">
+        <div class="category-section mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+  
+            <button class="btn p-0 border-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#{{nombre_categoria}}" aria-expanded="true" aria-controls="cafeteriaProducts">
+              <h5 class="m-0">{{nombre_categoria}}<span class="arrow-up">&#9650;</span></h5>
+            </button>
+           
+            {% if categoria[0] == "cafeteria" %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "pasteleria" %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "sin_tacc" %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "acompañamientos" or categoria[0] == 'ensaladas' %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "sanguches"  %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "tartas" or categoria[0] == 'emp  anadas_pizzas' %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "bebidas"  %}
+            <span class="text-muted"></span>
+            {% endif %}
+            {% if categoria[0] == "flores" %}
+            <span class="text-muted"></span>
+            {% endif %}
+  
+          </div>
+  
+  
+          <div id="{{nombre_categoria}}" class="collapse show mt-3">
+            <p class="text-muted">
+  
+              {% for producto in productos_de_categoria %}
+              <div class="container mt-4">
+                <h5 class="mb-3">{{ producto[1] }}</h5>
+                <div class="product d-flex align-items-center mb-3">
+                  <img src="../static/image/alma.png" alt="Producto" class="product-img me-3" id='imagen'>
+                  <div>
+  
+                    <p class="m-0 fw-bold">
+                      <a href="index.html" class="text-decoration-none">{{producto[2]}}</a>
+                    </p>
+                    <span class="badge text-bg-success">{{producto[3]}}</span>
+                    <p class="m-0 text-muted">$ {{producto[5]}}</p>
+  
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+  
+            </p>
+          </div>
+  
+  
+        </div>
+      </div>
+  
+  
+      {% endif %}
+          
+  
+        </div>
     </div>
+
+  
+
+
+
+
+        
+
+    </div>
+
+
 
     <div class='modal fade' id='exampleModal' tabinex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
       <div class='modal-dialog modal-dialog-centered' style='max-width: 370px;'>
@@ -200,7 +284,7 @@
                    <td class='text-end'>Abierto</td>
                 </tr>
                 <tr>
-                    <td>Viernes/td>
+                    <td>Viernes</td>
                    <td class='text-end'>Abierto</td>
                 </tr>
                 <tr>
