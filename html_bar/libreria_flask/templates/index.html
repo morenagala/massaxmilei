@@ -228,6 +228,9 @@
             {% if nombre_categoria == 'flores' %}
             <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
+            {% if nombre_categoria == 'sanguches' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
+            {% endif %}
 
           </div>
           <div id="{{nombre_categoria}}" class="collapse show mt-3">
