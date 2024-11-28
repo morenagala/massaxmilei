@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/style.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
  </head>
 
@@ -58,49 +59,39 @@
         </table>
 
 
-        <div class="row" >
-            <div class="col-12">
-                <div class="d-flex flex-nowrap overflow-auto mt-4 mb-1">
-                  
-                        <!-- Opción "Todos" -->
-                      <a href="#todasLasCategorias">
-                          <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
-                          <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio0">Todos</label>
-                      </a>
-   
-                   <!-- Opciones dinámicas -->
-                  
-                    {% for categoria in categorias %}
-                      <a href="javascript:void(0)" onclick="scrollToAndExpand('{{ categoria[0] }}')">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio{{ loop.index }}" autocomplete="off">
-                        <label class="btn btn-outline-naranja rounded-pill me-1" for="btnradio{{ loop.index }}">
-                          {{ categoria[0] }}
-                        </label>
-                      </a>
-                    {% endfor %}
-
-
-                </div>
-            </div>
-        </div>
-
-
         <div class="row">
-            <div class="col-12">
-                <div class="d-flex flex-nowrap overflow-auto mt-1">
-                    {% for categoria in categorias %}
-                    <div>
-                        <input type="radio" class="btn-check" name="radio" id="radio{{ loop.index }}" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill me-1" for="radio{{ loop.index }}">
-                            {{ categoria[0] }}  <!-- Asegúrate de acceder al valor correcto aquí -->
-                        </label>
-                    </div>
-                {% endfor %}
-                
+          <div class="col-12">
+              <div class="d-flex flex-nowrap overflow-auto mt-4 mb-1" id="botones">
+                  <div class="btn-group" role="group" aria-label="Categorias">
+                      <a href="{{ url_for('categoria', nombre_categoria=None) }}">
+                          <button class="btn btn-outline-naranja rounded-pill {% if nombre_categoria is none %}active{% endif %}">Todos</button>
+                      </a>
+                      {% for categoria in categorias %}
+                          <a href="{{ url_for('categoria', nombre_categoria=categoria[0]) }}">
+                              <button class="btn btn-outline-naranja rounded-pill {% if nombre_categoria == categoria[0] %}active{% endif %}">{{ categoria[0] }}</button>
+                          </a>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12">
+            <div class="d-flex flex-nowrap overflow-auto mt-1">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    {% for seccion in secciones %}
+                        <a href="{{ url_for('categoria', nombre_categoria=nombre_categoria, nombre_seccion=seccion[0]) }}">
+                            <button class="btn btn-outline-dark rounded-pill {% if nombre_seccion == seccion[0] %}active{% endif %}">{{ seccion[0] }}</button>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-
+    </div>
+    
+    
 
 
 
@@ -109,54 +100,57 @@
           <div class="container mt-4">
             <div class="category-section mb-3">
               <div class="d-flex justify-content-between align-items-center">
-                <button class="btn p-0 border-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#{{ categoria[0] }}" aria-expanded="true" aria-controls="cafeteriaProducts" onclick="scrollToSection('{{ categoria[0] }}')">
-                  <h5 class="m-1">{{ categoria[0] }}<span class="arrow-up">&#9650;</span></h5>
+                <button class="btn p-0 border-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#{{ categoria[0] }}" aria-expanded="true" aria-controls="cafeteriaProducts">
+                  <h5 class="m-0">{{ categoria[0]}}<span class="arrow-up">&#9650;</span></h5>
                 </button>
+
+                {% if categoria[0] == "cafeteria" %}
+                <span class="text-muted" >15 Items</span>
+                {% endif %}
+                {% if categoria[0] == "pasteleria" %}
+                <span class="text-muted">12 Items</span>
+                {% endif %}
+                {% if categoria[0] == "sin_tacc" %}
+                <span class="text-muted">7 Items</span>
+                {% endif %}
+                {% if categoria[0] == "acompañamientos" or categoria[0] == 'ensaladas' %}
+                <span class="text-muted">3 Items</span>
+                {% endif %}
+                {% if categoria[0] == "sanguches"  %}
+                <span class="text-muted">14 Items</span>
+                {% endif %}
+                {% if categoria[0] == "tartas" or categoria[0] == 'emp  anadas_pizzas' %}
+                <span class="text-muted">5 Items</span>
+                {% endif %}
+                {% if categoria[0] == "bebidas"  %}
+                <span class="text-muted">22 Items</span>
+                {% endif %}
+                {% if categoria[0] == "flores" %}
+                <span class="text-muted">4 Items</span>
+                {% endif %}
+
                 
-              
-              {% if categoria[0] == "cafeteria" %}
-              <span class="text-muted" >15 Items</span>
-              {% endif %}
-              {% if categoria[0] == "pasteleria" %}
-              <span class="text-muted">12 Items</span>
-              {% endif %}
-              {% if categoria[0] == "sin_tacc" %}
-              <span class="text-muted">7 Items</span>
-              {% endif %}
-              {% if categoria[0] == "acompañamientos" or categoria[0] == 'ensaladas' %}
-              <span class="text-muted">3 Items</span>
-              {% endif %}
-              {% if categoria[0] == "sanguches"  %}
-              <span class="text-muted">14 Items</span>
-              {% endif %}
-              {% if categoria[0] == "tartas" or categoria[0] == 'emp  anadas_pizzas' %}
-              <span class="text-muted">5 Items</span>
-              {% endif %}
-              {% if categoria[0] == "bebidas"  %}
-              <span class="text-muted">22 Items</span>
-              {% endif %}
-              {% if categoria[0] == "flores" %}
-              <span class="text-muted">4 Items</span>
-              {% endif %}
-
-
               </div>
               <div id="{{ categoria[0] }}" class="collapse show mt-3">
                 <p class="text-muted">
-                    {% for producto in productos_por_categoria[categoria[0]] %}
-                    <div class="container mt-4">
-                        <div class="product d-flex align-items-center mb-3">
-                            <img src="../static/image/alma.png" alt="Producto" class="product-img me-3" id="imagen">
-                            <div>
-                                <h5 id="titulo">{{ producto[1] }}</h5>
-                                <p><small><a href="index.html" class="text-decoration-none">{{ producto[2] }}</a></small></p>
-                                <div class="d-flex">
-                                    <p class="m-0 text-muted mt-4">$ {{ producto[5] }}</p>
-                                    <span class="badge text-bg-success mt-4">{{ producto[3] }}</span>
-                                </div>
-                            </div>
-                        </div>
+                  {% for producto in productos_por_categoria[categoria[0]] %}
+                  <div class="container mt-4">
+                    <div class="product d-flex align-items-center mb-3">
+                      <img src="../static/image/alma.png" alt="Producto" class="product-img me-3" style='width: 140px; height: auto;' >
+                      <div>
+
+                        <p class="m-0 fw-bold">
+                          <h5 class="">{{ producto[1] }}</h5>
+                          <a href="index.html" class="text-decoration-none" id='descripcion' ><small>{{producto[2]}}</small> </a>
+
+                          <p class="m-0 text-muted ms-2">{{producto[5]}}</p>
+                          <div class="d-flex align-items-center justify-content-between my-5">
+                            <p class="m-0 text-muted ms-2">$ {{producto[3]}}</p>
+                          </div>
+
+                      </div>
                     </div>
+                  </div>
                   {% endfor %}
                 </p>
               </div>
@@ -164,86 +158,74 @@
           </div>
         {% endfor %}
       {% else %}
-      
 
-
-       
-
-
-
-  
-      <div class="container mt-4 ">
+      <div class="container mt-4">
         <div class="category-section mb-3">
           <div class="d-flex justify-content-between align-items-center">
-  
             <button class="btn p-0 border-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#{{nombre_categoria}}" aria-expanded="true" aria-controls="cafeteriaProducts">
               <h5 class="m-0">{{nombre_categoria}}<span class="arrow-up">&#9650;</span></h5>
             </button>
-           
-            {% if categoria[0] == "cafeteria" %}
-            <span class="text-muted"></span>
+
+            {% if nombre_categoria == 'cafeteria' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "pasteleria" %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'pasteleria' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "sin_tacc" %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'sin_tacc' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "acompañamientos" or categoria[0] == 'ensaladas' %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'acompañamientos' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "sanguches"  %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'ensaladas' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "tartas" or categoria[0] == 'emp  anadas_pizzas' %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'tartas' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "bebidas"  %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'empanadas_pizzas' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-            {% if categoria[0] == "flores" %}
-            <span class="text-muted"></span>
+            {% if nombre_categoria == 'bebidas' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
             {% endif %}
-  
+            {% if nombre_categoria == 'flores' %}
+            <span class="text-muted">{{ productos_de_categoria|length }} Items</span>
+            {% endif %}
+
           </div>
-  
-  
           <div id="{{nombre_categoria}}" class="collapse show mt-3">
             <p class="text-muted">
-  
               {% for producto in productos_de_categoria %}
               <div class="container mt-4">
-                <h5 class="mb-3">{{ producto[1] }}</h5>
                 <div class="product d-flex align-items-center mb-3">
-                  <img src="../static/image/alma.png" alt="Producto" class="product-img me-3" id='imagen'>
+                  <img src="../static/image/alma.png" alt="Producto" class="product-img me-3" style='width: 130px; height: auto;'>
                   <div>
-  
                     <p class="m-0 fw-bold">
-                      <a href="index.html" class="text-decoration-none">{{producto[2]}}</a>
-                    </p>
-                    <span class="badge text-bg-success">{{producto[3]}}</span>
-                    <p class="m-0 text-muted">$ {{producto[5]}}</p>
-  
+                          <h5 class="">{{ producto[1] }}</h5>
+                          <a href="index.html" class="text-decoration-none" id='descripcion' ><small>{{producto[2]}}</small> </a>
+
+                        <p class="m-0 text-muted ms-2">{{producto[5]}}</p>
+                            <div class="d-flex align-items-center justify-content-between my-5">
+                        <p class="m-0 text-muted ms-2">$ {{producto[3]}}</p>
+                  </div>
+
+                    
+                    
                   </div>
                 </div>
               </div>
               {% endfor %}
-  
             </p>
           </div>
-  
-  
         </div>
       </div>
-  
-  
       {% endif %}
-          
-  
+      
+
         </div>
     </div>
-
-  
 
 
 

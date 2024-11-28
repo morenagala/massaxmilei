@@ -36,8 +36,8 @@ img{
     font-weight: normal;
 }
 .btn-check:checked + .btn-outline-naranja {
-    background-color: #ff7f50; 
-    color: white; 
+    background-color: white; 
+    color: #ff7f50; 
 }
 
 
@@ -99,4 +99,35 @@ img{
   }
 
 
-  
+  /* Estilo personalizado para el botón activo */
+.btn-outline-naranja.active {
+    background-color: #ff7f50; /* Color de fondo cuando está activo */
+    color: white; /* Color del texto cuando está activo */
+    border-color: #ff7f50; /* Color del borde cuando está activo */
+}
+
+/* Cambiar color de borde y texto al pasar el mouse sobre el botón activo */
+.btn-outline-naranja.active:hover {
+    background-color: #ff6347; /* Un color de fondo diferente al pasar el mouse */
+    color: white;
+}
+
+
+
+.btn-outline-dark.active {
+    background-color: black; /* Color de fondo cuando está activo */
+    color: white; /* Color del texto cuando está activo */
+    border-color: black; /* Color del borde cuando está activo */
+}
+
+/* Cambiar color de borde y texto al pasar el mouse sobre el botón activo */
+.btn-outline-dark.active:hover {
+    background-color: black; /* Un color de fondo diferente al pasar el mouse */
+    color: white;
+}
+
+
+#descripcion{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #a0a0a0;
+}
