@@ -16,6 +16,7 @@
     <div class="position-relative" id='fondo'>
 
         <img src="../static/image/AlmaCafePuertoMadero_portada.jpg_copia (1).png" class="img-fluid" alt="Café Alma">
+        
         <button class="btn btn-outline-success position-absolute rounded-circle top-fixed" style="left: 80%; transform: translate(-50%, -50%); background-color: white; width: 40px; ">
             <i class="bi bi-share"></i>
         </button>
@@ -58,7 +59,7 @@
             </tbody>
         </table>
 
-
+<!-- botones principales (todo) -->
         <div class="row">
           <div class="col-12">
               <div class="d-flex flex-nowrap overflow-auto mt-4 mb-1" id="botones">
@@ -68,7 +69,10 @@
                       </a>
                       {% for categoria in categorias %}
                           <a href="{{ url_for('categoria', nombre_categoria=categoria[0]) }}">
-                              <button class="btn btn-outline-naranja rounded-pill {% if nombre_categoria == categoria[0] %}active{% endif %}">{{ categoria[0] }}</button>
+                              <button class="btn btn-outline-naranja rounded-pill 
+                                {% if nombre_categoria == categoria[0] %}active{% endif %}">
+                                    {{ categoria[0] }}
+                              </button>
                           </a>
                       {% endfor %}
                   </div>
@@ -76,16 +80,33 @@
           </div>
       </div>
 
+<!-- segundo grpo de botones -->
 
       <div class="row">
         <div class="col-12">
             <div class="d-flex flex-nowrap overflow-auto mt-1">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    {% for seccion in secciones %}
-                        <a href="{{ url_for('categoria', nombre_categoria=nombre_categoria, nombre_seccion=seccion[0]) }}">
-                            <button class="btn btn-outline-dark rounded-pill {% if nombre_seccion == seccion[0] %}active{% endif %}">{{ seccion[0] }}</button>
-                        </a>
-                    {% endfor %}
+
+                  {% for seccion in secciones %}
+                  <a href="{{ url_for('categoria', nombre_categoria=nombre_categoria , nombre_seccion=seccion[0],) }}">
+
+                    <button class="btn rounded-pill 
+                        {% if not seccion[0] %}d-none
+                        {% elif nombre_seccion == seccion[0] %} 
+                        {% if seccion[0] == 'sin_TACC' %} btn-outline-danger active
+                        {% elif seccion[0] == 'vegetariano' or seccion[0] == 'vegano' %} btn-outline-success active
+                        {% else %} btn-outline-dark active {% endif %}
+                        {% elif seccion[0] == 'sin_TACC' %} btn-outline-danger
+                        {% elif seccion[0] == 'vegetariano' or seccion[0] == 'vegano' %} btn-outline-success
+                        {% else %} btn-outline-dark {% endif %}">
+                        
+                              {{ seccion[0] }}
+                
+                    </button>
+                
+                  </a>
+                  {% endfor %}
+              
                 </div>
             </div>
         </div>
@@ -93,7 +114,7 @@
     
     
 
-
+<!-- todos los productos listados -->
 
         {% if nombre_categoria is none %}
         {% for categoria in categorias %}
@@ -143,7 +164,17 @@
                           <h5 class="">{{ producto[1] }}</h5>
                           <a href="index.html" class="text-decoration-none" id='descripcion' ><small>{{producto[2]}}</small> </a>
 
-                          <p class="m-0 text-muted ms-2">{{producto[5]}}</p>
+                          <p>
+                            <span class=" 
+                              {% if not producto[5] %}d-none 
+                              {% elif producto[5] == 'sin_TACC'%} badge text-bg-danger active
+                              {% elif producto[5] == 'vegetariano' or producto[5] == 'vegano' %} badge text-bg-success active
+                              {% elif producto[5] == 'baguette' or producto[5] == 'pebete' or producto[5] == 'arabe' %} badge text-bg-dark active
+                              {% endif %}"> 
+                                  {{producto[5]}} 
+                            </span>
+                          </p>
+
                           <div class="d-flex align-items-center justify-content-between my-5">
                             <p class="m-0 text-muted ms-2">$ {{producto[3]}}</p>
                           </div>
@@ -158,6 +189,10 @@
           </div>
         {% endfor %}
       {% else %}
+
+
+
+ <!-- productos listados solo la categoria -->    
 
       <div class="container mt-4">
         <div class="category-section mb-3">
@@ -206,7 +241,17 @@
                           <h5 class="">{{ producto[1] }}</h5>
                           <a href="index.html" class="text-decoration-none" id='descripcion' ><small>{{producto[2]}}</small> </a>
 
-                        <p class="m-0 text-muted ms-2">{{producto[5]}}</p>
+                          <p>
+                            <span class=" 
+                              {% if not producto[5] %}d-none 
+                              {% elif producto[5] == 'sin_TACC'%} badge text-bg-danger
+                              {% elif producto[5] == 'vegetariano' or producto[5] == 'vegano' %} badge text-bg-success
+                              {% elif producto[5] == 'baguette' or producto[5] == 'pebete' or producto[5] == 'arabe' %} badge text-bg-dark
+                              {% endif %}"> 
+                                  {{producto[5]}} 
+                            </span>
+                          </p>
+
                             <div class="d-flex align-items-center justify-content-between my-5">
                         <p class="m-0 text-muted ms-2">$ {{producto[3]}}</p>
                   </div>
