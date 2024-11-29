@@ -2,7 +2,9 @@ from flask import Flask, render_template
 from crear_conexion import obtener_conexion
 
 app = Flask(__name__)
-
+@app.route('/informacion')
+def informacion():
+    return render_template('informacion.html')
 @app.route('/')
 @app.route('/<nombre_categoria>')
 @app.route('/<nombre_categoria>/<nombre_seccion>')

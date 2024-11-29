@@ -1,0 +1,51 @@
+#root,
+html {
+    height: 100dvh;
+    box-sizing: border-box;
+}
+html, body {
+    overflow-x: hidden;
+}
+
+
+@media (min-width: 576px) {
+    #root {
+        width: 390px;
+        margin: auto;
+    }
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: #000 !important;
+    line-height: 1.5;
+}
+
+img{
+    width: 390px;
+}
+
+#fondo{
+    filter: grayscale(100%);
+    z-index: -1;
+}
+
+
+#link{
+    color: black !important;
+    text-decoration: none;
+}
+
+#card{
+    border-radius: 0;
+    border: 1px solid #ddd; 
+}
+
+#abierto{
+        background-color:#D0F5B8;
+        color: #5ECC16; 
+        border-color: transparent;
+}
+
+    
